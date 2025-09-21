@@ -72,18 +72,18 @@ def on_click(event):
         modo_f2_activo = not modo_f2_activo
         # Cambiar el color del botón para indicar el estado
         if modo_f2_activo:
-            event.widget.config(bg="lightgreen")
+            event.widget.config(bg="lime")  # Verde más visible sobre rosa
         else:
-            event.widget.config(bg="SystemButtonFace")
+            event.widget.config(bg="hotpink")  # Volver al rosa original
         return
     
     elif button_text == "F3":
         modo_f3_activo = not modo_f3_activo
         # Cambiar el color del botón para indicar el estado
         if modo_f3_activo:
-            event.widget.config(bg="lightblue")
+            event.widget.config(bg="cyan")  # Cian más visible sobre rosa
         else:
-            event.widget.config(bg="SystemButtonFace")
+            event.widget.config(bg="hotpink")  # Volver al rosa original
         return
     
     # Manejo del botón igual
@@ -175,9 +175,10 @@ def on_click(event):
 root = tk.Tk()  # Crea la ventana principal
 root.title("Calculadora Científica de Luna Diaz")  # Establece el título de la ventana
 root.geometry("400x600")  # Tamaño de la ventana
+root.configure(bg="pink")  # Fondo rosa para la ventana
 
 # Crear una caja de entrada (Entry)
-entry = tk.Entry(root, font=("Helvetica", 20), justify='right')  # Campo de texto alineado a la derecha
+entry = tk.Entry(root, font=("Helvetica", 20), justify='right', bg="lightpink", fg="black")  # Campo de texto rosa claro
 entry.grid(row=0, column=0, columnspan=4, padx=5, pady=5, sticky='ew')  # Posiciona el campo
 
 # Lista de botones ordenados por filas
@@ -187,10 +188,10 @@ buttons = [
     ["4", "5", "6", "*"],         # Fila 3: números 4-6 y multiplicación
     ["1", "2", "3", "-"],         # Fila 4: números 1-3 y resta
     ["0", ".", "=", "+"],         # Fila 5: número 0, punto decimal, igual y suma
-    ["", "", "%", ""]             # Fila 6: módulo y espacios vacíos
+    ["", "", "", ""]             # Fila 6: espacios vacíos
 ]
 
-# Crear y colocar los botones en la ventana
+#Para que la calculadora sea rosa 
 for row_idx, button_row in enumerate(buttons):
     for col_idx, button_text in enumerate(button_row):
         if button_text:  # Solo crear botón si hay texto
@@ -201,7 +202,11 @@ for row_idx, button_row in enumerate(buttons):
                 padx=10, 
                 pady=10,
                 width=5,
-                height=2
+                height=2,
+                bg="hotpink",      # Fondo rosa intenso
+                fg="white",        # Texto blanco
+                activebackground="deeppink",  # Color al presionar
+                activeforeground="white"      # Texto blanco al presionar
             )
             button.grid(row=row_idx+1, column=col_idx, padx=2, pady=2, sticky='nsew')
             button.bind("<Button-1>", on_click)  # Asocia la función on_click al evento de clic
@@ -213,10 +218,11 @@ for i in range(len(buttons)+1):
     root.grid_rowconfigure(i, weight=1)
 
 # Agregar indicadores de estado en la parte inferior
-status_frame = tk.Frame(root)
+status_frame = tk.Frame(root, bg="pink")  # Fondo rosa para el frame
 status_frame.grid(row=len(buttons)+1, column=0, columnspan=4, pady=5)
 
-status_label = tk.Label(status_frame, text="Modos: F2=Trigonométrico, F3=Avanzado", font=("Helvetica", 10))
+status_label = tk.Label(status_frame, text="Modos: F2=Trigonométrico, F3=Avanzado", 
+                       font=("Helvetica", 10), bg="pink", fg="darkmagenta")  # Etiqueta rosa
 status_label.pack()
 
 # Ejecutar el bucle principal
